@@ -49,6 +49,7 @@ int a;
 /* LED_timer */
 unsigned long time;
 unsigned long pre_time;
+int color = 0;
 
 /* define the states and properties of the buttons */
 int ButtonState = 0;
@@ -75,7 +76,6 @@ void setup() {
   pinMode(rightC, INPUT_PULLUP);
   pinMode(start, INPUT_PULLUP);
 
-
   Serial.begin(115200);
   // initialize mouse control:
   Mouse.begin();
@@ -94,77 +94,77 @@ void Card(){
 
 void buttons(){ //主按键/main keys
   if (digitalRead(leftA) == LOW){
-    Keyboard.press('A');
+    Keyboard.press('a');
   }
   else{
-    Keyboard.release('A');
+    Keyboard.release('a');
   }
 
   if (digitalRead(leftB) == LOW){
-    Keyboard.press('S');
+    Keyboard.press('s');
   }
   else{
-    Keyboard.release('S');
+    Keyboard.release('s');
   }
   
   if (digitalRead(leftC) == LOW){
-    Keyboard.press('D');
+    Keyboard.press('d');
   }
   else{
-    Keyboard.release('D');
+    Keyboard.release('d');
   }
 
   if (digitalRead(rightA) == LOW){
-    Keyboard.press('J');
+    Keyboard.press('j');
   }
   else{
-    Keyboard.release('J');
+    Keyboard.release('j');
   }
 
   if (digitalRead(rightB) == LOW){
-    Keyboard.press('K');
+    Keyboard.press('k');
   }
   else{
-    Keyboard.release('K');
+    Keyboard.release('k');
   }
 
   if (digitalRead(rightC) == LOW){
-    Keyboard.press('L');
+    Keyboard.press('l');
   }
   else{
-    Keyboard.release('L');
+    Keyboard.release('l');
   }
 }
 
 void sides(){ //侧键/side keys
   if (digitalRead(sideL) == LOW){
-    Keyboard.press('Q');
+    Keyboard.press('q');
   }
   else{
-    Keyboard.release('Q');
+    Keyboard.release('q');
   }
 
   if (digitalRead(sideR) == LOW){
-    Keyboard.press('P');
+    Keyboard.press('p');
   }
   else{
-    Keyboard.release('P');
+    Keyboard.release('p');
   }
 }
 
 void fx(){ //fx或者func按键/fx or func
   if (digitalRead(funcL) == LOW){
-    Keyboard.press('W');
+    Keyboard.press('w');
   }
   else{
-    Keyboard.release('W');
+    Keyboard.release('w');
   }
 
   if (digitalRead(funcR) == LOW){
-    Keyboard.press('O');
+    Keyboard.press('o');
   }
   else{
-    Keyboard.release('O');
+    Keyboard.release('o');
   }
 }
 
@@ -223,11 +223,9 @@ void moveLed(){ //循环移动彩虹灯条/looply move rainbow ws2812b
   time = millis();
   if (time >= pre_time + 250){
     pre_time = time;
-    for (int k = 0; a <= NUM_LEDS1; k = k + 1)
-    {   
-      leds1[k % NUM_LEDS1] = leds2[(k+1) % NUM_LEDS2];
-    }
-    memcpy(leds2, leds1, sizeof(leds1));
+    color = (color + 1) % 256;
+    fill_rainbow(leds1, NUM_LEDS1, color, 2);
+    fill_rainbow(leds2, NUM_LEDS2, color, 2);
   }
 }
 
