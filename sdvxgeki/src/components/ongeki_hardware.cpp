@@ -23,7 +23,6 @@ namespace component
 #define Sensor A4
         const int LED_PIN = 12;
         CRGB lightColors[6];
-
         void start()
         {
             // setup pin modes for button

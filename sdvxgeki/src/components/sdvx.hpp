@@ -1,8 +1,4 @@
-#include "./src/Encoder/Encoder.h"
-#include "stdint.h"
-#include "HID-Project.h"
-#include "FastLED.h"
-#include "string.h"
+#pragma once
 
 namespace component{
     namespace sdvx{

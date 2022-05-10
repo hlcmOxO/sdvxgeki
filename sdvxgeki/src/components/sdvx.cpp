@@ -1,8 +1,5 @@
-#include "./src/Encoder/Encoder.h"
-#include "stdint.h"
-#include "HID-Project.h"
-#include "FastLED.h"
-#include "string.h"
+#include "stdinclude.hpp"
+
 /*Buttons using digital pins*/
 #define leftA 2 //实际上是4口
 #define leftB 5
@@ -33,6 +30,13 @@ namespace component
 {
     namespace sdvx
     {
+        const uint8_t PIN_MAP[7] = {
+            // A B C D start fxl fxr
+            5, 6, 7, 8, 13, PIN_A2, PIN_A3};
+
+        const uint8_t PIN_KEY[7] = {
+            's', 'd', 'j', 'k', 't', 'w', 'o'};
+
         Encoder encLeft(ENC_1_PIN_A, ENC_1_PIN_B);
         Encoder encRight(ENC_2_PIN_A, ENC_2_PIN_B);
 
@@ -62,76 +66,16 @@ namespace component
 
         void buttons()
         { //主按键/main keys
-
-            if (digitalRead(start_button) == LOW)
+            for (int i = 0; i < 7; i++)
             {
-                NKROKeyboard.press('t');
+                if (digitalRead(PIN_MAP[i]) == LOW)
+                {
+                    NKROKeyboard.press(PIN_KEY[i]);
+                }
             }
-            else
-            {
-                NKROKeyboard.release('t');
-            }
-
-            if (digitalRead(leftB) == LOW)
-            {
-                NKROKeyboard.press('s');
-            }
-            else
-            {
-                NKROKeyboard.release('s');
-            }
-
-            if (digitalRead(leftC) == LOW)
-            {
-                NKROKeyboard.press('d');
-            }
-            else
-            {
-                NKROKeyboard.release('d');
-            }
-
-            if (digitalRead(rightA) == LOW)
-            {
-                NKROKeyboard.press('j');
-            }
-            else
-            {
-                NKROKeyboard.release('j');
-            }
-
-            if (digitalRead(rightB) == LOW)
-            {
-                NKROKeyboard.press('k');
-            }
-            else
-            {
-                NKROKeyboard.release('k');
-            }
+            /* sdvx's encoder */
+            //旋钮更新代码
         }
-
-        void fx()
-        { // fx或者func按键/fx or func
-            if (digitalRead(funcL) == LOW)
-            {
-                NKROKeyboard.press('w');
-            }
-            else
-            {
-                NKROKeyboard.release('w');
-            }
-
-            if (digitalRead(funcR) == LOW)
-            {
-                NKROKeyboard.press('o');
-            }
-            else
-            {
-                NKROKeyboard.release('o');
-            }
-        }
-
-        /* sdvx's encoder */
-        //旋钮更新代码
 
         void updateMousePositionLeft()
         {
@@ -171,7 +115,6 @@ namespace component
         void update()
         {
             buttons();
-            fx();
             encFuncLeft();
             encFuncRight();
             moveLed();
