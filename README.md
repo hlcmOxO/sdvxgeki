@@ -41,7 +41,7 @@ A 2 in 1 game controller for sdvx and ongeki
 
 17.Usb micro数据线一根
 
-有问题请加群754200452或qq1239244004
+有问题请加qq1239244004
 
 特别鸣谢Geekidos提供直连io的技术支持
 
