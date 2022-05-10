@@ -5,10 +5,12 @@ namespace component {
         void start() {
             raw_hid::start();
             ongeki_hardware::start();
+            sdvx::start();
         }
 
         void update() {
             raw_hid::update();
+            sdvx::update();
         }
     }
 }

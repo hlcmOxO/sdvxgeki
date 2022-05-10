@@ -9,3 +9,4 @@ namespace component {
 
 #include "raw_hid.hpp"
 #include "ongeki_hardware.hpp"
+#include "sdvx.hpp"
